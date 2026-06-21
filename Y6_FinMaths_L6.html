@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 6 Maths — Lesson 6: Comparing Financial Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #1B3A6B;
+    --teal:   #0D7377;
+    --teal2:  #14A0A5;
+    --gold:   #E8B84B;
+    --coral:  #E8654B;
+    --green:  #2E9E60;
+    --purple: #7B4FBF;
+    --orange: #C4621A;
+    --bg:     #F0F4F8;
+    --white:  #FFFFFF;
+    --text:   #1a2a3a;
+    --muted:  #5a7080;
+    --s1:     #2980B9;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(27,58,107,0.10);
+    --shadow-lg: 0 8px 40px rgba(27,58,107,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── HERO — purple accent to distinguish problem-solving lesson ── */
+  .hero { background: var(--navy); padding: 0; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 20%, rgba(123,79,191,0.45) 0%, transparent 55%),
+                radial-gradient(ellipse at 10% 85%, rgba(13,115,119,0.30) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; max-width: 1100px; margin: 0 auto; padding: 48px 32px 40px; display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .hero-badge { background: var(--purple); color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; display: inline-block; margin-bottom: 12px; }
+  .hero h1 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(26px, 4vw, 44px); color: #fff; line-height: 1.15; margin-bottom: 10px; }
+  .hero h1 span { color: #c8a8ff; }
+  .hero-sub { color: rgba(255,255,255,0.75); font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .hero-meta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+  .hero-chip { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 999px; }
+  .hero-shapes { position: absolute; right: 0; top: 0; bottom: 0; width: 300px; opacity: 0.05; pointer-events: none; }
+  .hero-shapes svg { width: 100%; height: 100%; }
+
+  /* ── NAV ── */
+  .nav-bar { background: var(--white); border-bottom: 2px solid #dde6ee; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(27,58,107,0.07); }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-tab { flex-shrink: 0; padding: 16px 22px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: var(--muted); background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: color .2s, border-color .2s; white-space: nowrap; margin-bottom: -2px; }
+  .nav-tab:hover { color: var(--purple); }
+  .nav-tab.active { color: var(--navy); border-bottom-color: var(--purple); }
+  .nav-tab .tab-icon { margin-right: 6px; font-size: 15px; }
+
+  /* ── MAIN ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { display: none; animation: fadeIn .35s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+
+  /* ── CARD ── */
+  .card { background: var(--white); border-radius: var(--radius); padding: 32px 36px; box-shadow: var(--shadow); margin-bottom: 24px; }
+  .card-title { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 20px; color: var(--navy); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .card-title .icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+
+  /* ── STYLED LIST ── */
+  .styled-list { list-style: none; padding: 0; }
+  .styled-list li { padding: 10px 14px 10px 44px; position: relative; border-radius: 8px; font-size: 15px; line-height: 1.6; margin-bottom: 6px; background: var(--bg); }
+  .styled-list li::before { content: attr(data-icon); position: absolute; left: 14px; top: 11px; font-size: 15px; }
+
+  /* ── LI GRID ── */
+  .li-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 680px) { .li-grid { grid-template-columns: 1fr; } }
+  .li-card { border-radius: 14px; padding: 24px 28px; }
+  .li-card.intentions { background: linear-gradient(135deg,#f5f0ff,#e8daff); border-left: 5px solid var(--purple); }
+  .li-card.criteria   { background: linear-gradient(135deg,#E3F6EC,#C8EFD8); border-left: 5px solid var(--green); }
+  .li-card h3 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .li-card.intentions h3 { color: var(--purple); }
+  .li-card.criteria   h3 { color: var(--green); }
+  .li-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 15px; line-height: 1.55; }
+  .li-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+  .intentions .li-dot { background: var(--purple); color: #fff; }
+  .criteria   .li-dot { background: var(--green); color: #fff; }
+
+  /* ── TEACH STEPS ── */
+  .teach-steps { display: flex; flex-direction: column; }
+  .teach-step { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid #edf2f7; }
+  .teach-step:last-child { border-bottom: none; }
+  .step-num { width: 42px; height: 42px; background: var(--navy); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 18px; flex-shrink: 0; }
+  .step-body { flex: 1; }
+  .step-title { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 17px; color: var(--navy); margin-bottom: 8px; }
+  .step-desc { font-size: 15px; line-height: 1.7; color: var(--text); }
+  .step-time { display: inline-block; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-top: 8px; }
+  .teacher-note { background: #FFFDE6; border-left: 5px solid var(--gold); border-radius: 10px; padding: 16px 20px; margin-top: 14px; font-size: 14px; line-height: 1.7; color: #4a3000; }
+  .teacher-note strong { display: block; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #7a4e00; margin-bottom: 4px; }
+
+  /* ── MODELLING CYCLE ── */
+  .model-cycle { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 16px 0; }
+  @media (max-width: 620px) { .model-cycle { grid-template-columns: 1fr 1fr; } }
+  .cycle-step { border-radius: 14px; padding: 18px 16px; text-align: center; }
+  .cycle-step .cs-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; margin: 0 auto 8px; color: #fff; }
+  .cycle-step .cs-label { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .cycle-step .cs-desc { font-size: 12px; line-height: 1.5; color: var(--text); }
+  .cs1 { background: #EBF4FF; border: 2px solid var(--s1); }
+  .cs1 .cs-num { background: var(--s1); } .cs1 .cs-label { color: var(--s1); }
+  .cs2 { background: #FFF9E6; border: 2px solid var(--gold); }
+  .cs2 .cs-num { background: var(--gold); } .cs2 .cs-label { color: #7a4e00; }
+  .cs3 { background: #E3F6EC; border: 2px solid var(--green); }
+  .cs3 .cs-num { background: var(--green); } .cs3 .cs-label { color: #1a5030; }
+  .cs4 { background: #f5f0ff; border: 2px solid var(--purple); }
+  .cs4 .cs-num { background: var(--purple); } .cs4 .cs-label { color: var(--purple); }
+
+  /* ── PHONE PLAN WORKED EXAMPLE ── */
+  .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+  @media (max-width: 580px) { .plan-grid { grid-template-columns: 1fr; } }
+  .plan-card { border-radius: 14px; padding: 20px; border: 2px solid; }
+  .plan-card.a { background: #EBF4FF; border-color: var(--s1); }
+  .plan-card.b { background: #f5f0ff; border-color: var(--purple); }
+  .plan-name { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; margin-bottom: 8px; }
+  .plan-card.a .plan-name { color: var(--s1); }
+  .plan-card.b .plan-name { color: var(--purple); }
+  .plan-detail { font-size: 14px; line-height: 1.8; color: var(--text); }
+  .plan-detail strong { font-family: 'Nunito', sans-serif; font-weight: 900; }
+
+  /* ── CROSSOVER TABLE ── */
+  .crossover-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  .crossover-table th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 800; }
+  .crossover-table th:first-child { border-radius: 8px 0 0 0; }
+  .crossover-table th:last-child  { border-radius: 0 8px 0 0; }
+  .crossover-table td { padding: 10px 14px; border-bottom: 1px solid #edf2f7; font-weight: 600; }
+  .crossover-table tr:nth-child(even) td { background: var(--bg); }
+  .crossover-table .winner { font-family: 'Nunito', sans-serif; font-weight: 900; }
+  .crossover-table .win-a { color: var(--s1); }
+  .crossover-table .win-b { color: var(--purple); }
+  .crossover-table .win-tie { color: var(--green); }
+
+  /* ── SCENARIO SELECTOR ── */
+  .scenario-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .scenario-btn { flex: 1; min-width: 180px; padding: 14px 18px; border-radius: 12px; border: 2px solid #dde6ee; background: var(--white); cursor: pointer; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: var(--muted); transition: all .2s; text-align: left; display: flex; align-items: center; gap: 10px; }
+  .scenario-btn:hover { border-color: var(--purple); color: var(--navy); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .scenario-btn.active { border-color: var(--purple); background: #f5f0ff; color: var(--purple); box-shadow: var(--shadow); }
+  .scenario-panel { display: none; animation: fadeIn .3s ease; }
+  .scenario-panel.active { display: block; }
+
+  /* ── SCENARIO CARD ── */
+  .sc-header { border-radius: var(--radius); padding: 22px 26px; margin-bottom: 16px; }
+  .sc-header.elec  { background: linear-gradient(135deg,#1B3A6B,#14527a); color: #fff; }
+  .sc-header.super { background: linear-gradient(135deg,#1a5030,#0D7377); color: #fff; }
+  .sc-header.equip { background: linear-gradient(135deg,#4a1a80,#7B4FBF); color: #fff; }
+  .sc-label { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; margin-bottom: 6px; }
+  .sc-title { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; margin-bottom: 6px; }
+  .sc-sub { font-size: 14px; opacity: 0.85; line-height: 1.5; }
+
+  .option-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  @media (max-width: 580px) { .option-pair { grid-template-columns: 1fr; } }
+  .option-card { border-radius: 12px; padding: 18px; border: 2px solid; }
+  .option-card.opt-a { background: #EBF4FF; border-color: var(--s1); }
+  .option-card.opt-b { background: #f5f0ff; border-color: var(--purple); }
+  .opt-name { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 15px; margin-bottom: 8px; }
+  .option-card.opt-a .opt-name { color: var(--s1); }
+  .option-card.opt-b .opt-name { color: var(--purple); }
+  .opt-detail { font-size: 14px; line-height: 1.8; }
+
+  /* ── WORKING TABLE (interactive) ── */
+  .working-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  .working-table th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; }
+  .working-table td { padding: 8px 14px; border-bottom: 1px solid #edf2f7; }
+  .working-table tr:nth-child(even) td { background: var(--bg); }
+  .working-input { width: 100%; padding: 6px 10px; border-radius: 8px; border: 2px solid #dde6ee; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px; transition: border-color .2s; }
+  .working-input:focus { outline: none; border-color: var(--purple); }
+
+  /* ── GENERALISE BOX ── */
+  .generalise-box { background: linear-gradient(135deg,#1B3A6B,#4a1a80); border-radius: var(--radius); padding: 26px 30px; margin: 20px 0; color: #fff; }
+  .generalise-box h3 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 18px; color: #c8a8ff; margin-bottom: 6px; }
+  .generalise-box p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 14px; }
+  .gen-input { width: 100%; padding: 11px 15px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; font-family: 'Nunito Sans', sans-serif; font-size: 14px; line-height: 1.5; resize: vertical; min-height: 60px; margin-bottom: 10px; transition: border-color .2s; }
+  .gen-input::placeholder { color: rgba(255,255,255,0.4); }
+  .gen-input:focus { outline: none; border-color: #c8a8ff; }
+
+  /* ── DIFF LEVELS ── */
+  .diff-intro p { font-size: 15px; line-height: 1.7; color: var(--text); margin-bottom: 20px; }
+  .diff-level { border-radius: var(--radius); padding: 24px 28px; margin-bottom: 16px; border: 2px solid transparent; }
+  .diff-level.core   { background: var(--white); border-color: #dde6ee; box-shadow: var(--shadow); }
+  .diff-level.ext    { background: #f0fdf6; border-color: var(--green); }
+  .diff-level.deep   { background: #f5f0ff; border-color: var(--purple); }
+  .diff-level.sup    { background: #fff8f5; border-color: var(--coral); }
+  .diff-level-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .diff-level-badge { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+  .core   .diff-level-badge { background: var(--navy); color: #fff; }
+  .ext    .diff-level-badge { background: var(--green); color: #fff; }
+  .deep   .diff-level-badge { background: var(--purple); color: #fff; }
+  .sup    .diff-level-badge { background: var(--coral); color: #fff; }
+  .diff-level-title { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; }
+  .core .diff-level-title { color: var(--navy); }
+  .ext  .diff-level-title { color: #1a6040; }
+  .deep .diff-level-title { color: var(--purple); }
+  .sup  .diff-level-title { color: #7a2010; }
+  .diff-level-sub { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.07); }
+  .diff-q { background: rgba(255,255,255,0.7); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; border-left: 4px solid rgba(0,0,0,0.1); }
+  .core .diff-q { background: var(--bg); border-left-color: #b0c8d8; }
+  .ext  .diff-q { border-left-color: var(--green); }
+  .deep .diff-q { border-left-color: var(--purple); }
+  .sup  .diff-q { border-left-color: var(--coral); }
+  .diff-q-num { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  .core .diff-q-num { color: var(--navy); }
+  .ext  .diff-q-num { color: var(--green); }
+  .deep .diff-q-num { color: var(--purple); }
+  .sup  .diff-q-num { color: var(--coral); }
+  .diff-q p { font-size: 14px; line-height: 1.65; color: var(--text); }
+  .diff-q .scaffold { margin-top: 8px; padding: 8px 12px; border-radius: 8px; background: rgba(232,101,75,0.08); font-size: 13px; line-height: 1.65; color: #5a2010; border: 1px solid rgba(232,101,75,0.2); }
+  .diff-q .scaffold strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--coral); margin-bottom: 3px; }
+  .diff-se-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 1px solid; margin-bottom: 8px; }
+  .se-a { background: #f5f0ff; color: var(--purple); border-color: var(--purple); }
+  .se-b { background: #EBF4FF; color: var(--s1); border-color: var(--s1); }
+  .se-c { background: #E3F6EC; color: var(--green); border-color: var(--green); }
+  .se-d { background: #FFF8E6; color: #7a4e00; border-color: var(--gold); }
+  .diff-gate { background: var(--white); border-radius: 12px; padding: 18px 22px; border: 2px dashed #b0c8d8; margin: 18px 0; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .diff-gate-q { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: var(--navy); flex: 1; min-width: 160px; }
+  .gate-btn { padding: 9px 20px; border-radius: 999px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer; border: 2px solid; transition: all .2s; white-space: nowrap; }
+  .gate-btn.got  { background: #e3f6ec; border-color: var(--green); color: #1a5030; }
+  .gate-btn.got:hover  { background: #c8f0d8; transform: translateY(-1px); }
+  .gate-btn.help { background: #fdeee9; border-color: var(--coral); color: #7a1a08; }
+  .gate-btn.help:hover { background: #f8d8ce; transform: translateY(-1px); }
+  .diff-branch { display: none; margin-top: 4px; }
+  .diff-branch.open { display: block; animation: fadeIn .3s ease; }
+
+  /* ── REVEAL ── */
+  .reveal-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 16px; border-radius: 999px; border: 2px solid; cursor: pointer; font-family: "Nunito", sans-serif; font-weight: 800; font-size: 13px; transition: all .2s; background: none; }
+  .reveal-arrow { font-size: 12px; transition: transform .2s; }
+  .hint-btn    { border-color: var(--teal); color: var(--teal); background: #e8f7f7; }
+  .hint-btn:hover    { background: #c8eeee; }
+  .answer-btn  { border-color: var(--coral); color: #7a1a08; background: #fff0ee; }
+  .answer-btn:hover  { background: #ffd8d0; }
+  .reveal-content { display: none; margin-top: 10px; padding: 14px 18px; border-radius: 10px; font-size: 14px; line-height: 1.65; animation: fadeIn .3s ease; }
+  .reveal-content.open { display: block; }
+  .reveal-content.hint-content   { background: #e8f7f7; border-left: 4px solid var(--teal); }
+  .reveal-content.answer-content { background: #fff0ee; border-left: 4px solid var(--coral); }
+
+  /* ── EXIT TICKET ── */
+  .exit-ticket { background: linear-gradient(135deg,#1B3A6B,#4a1a80); border-radius: var(--radius); padding: 28px 32px; color: #fff; margin-bottom: 24px; }
+  .exit-ticket h3 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 20px; color: #c8a8ff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .exit-ticket p { color: rgba(255,255,255,0.85); font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+  .exit-input { width: 100%; padding: 12px 16px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; font-family: 'Nunito Sans', sans-serif; font-size: 14px; line-height: 1.5; resize: vertical; min-height: 60px; margin-bottom: 12px; transition: border-color .2s; }
+  .exit-input::placeholder { color: rgba(255,255,255,0.4); }
+  .exit-input:focus { outline: none; border-color: #c8a8ff; }
+  .exit-submit { background: var(--purple); color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px; padding: 10px 28px; border: none; border-radius: 999px; cursor: pointer; transition: all .2s; }
+  .exit-submit:hover { background: #6a3faf; transform: translateY(-2px); }
+  .exit-confirm { display: none; background: rgba(46,158,96,0.2); border: 1px solid rgba(46,158,96,0.4); border-radius: 10px; padding: 12px 16px; color: #a8f0c8; font-size: 14px; font-weight: 700; margin-top: 10px; }
+  .exit-confirm.show { display: block; }
+
+  /* ── ACARA TAG ── */
+  .acara-tag { display: inline-flex; align-items: center; gap: 6px; background: #f5f0ff; color: var(--purple); border: 1px solid var(--purple); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; padding: 4px 12px; border-radius: 999px; margin-right: 6px; margin-bottom: 6px; }
+
+  @media print { .nav-bar { display: none !important; } .section { display: block !important; } }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-shapes">
+    <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
+      <text x="10"  y="80"  font-family="Arial" font-size="32" fill="white">Option A</text>
+      <text x="10"  y="130" font-family="Arial" font-size="60" fill="white">vs</text>
+      <text x="10"  y="200" font-family="Arial" font-size="32" fill="white">Option B</text>
+      <text x="160" y="240" font-family="Arial" font-size="24" fill="white">when?</text>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <span class="hero-badge">🔀 Problem Solving + Generalising</span>
+      <h1>Lesson 6:<br><span>Comparing Financial Options</span></h1>
+      <p class="hero-sub">Financial Mathematics Unit · Term 2 · Lesson 6 of 14</p>
+      <div class="hero-meta">
+        <span class="hero-chip">⏱ 60 min</span>
+        <span class="hero-chip">📊 Modelling Cycle</span>
+        <span class="hero-chip">🔀 3 Scenarios</span>
+        <span class="hero-chip">📐 Generalising Rules</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ NAV ════════════════════════════════════════════════════════════ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-tab active" onclick="showSection('overview')"   id="tab-overview"><span class="tab-icon">🏠</span>Overview</button>
+    <button class="nav-tab" onclick="showSection('intentions')"  id="tab-intentions"><span class="tab-icon">🎯</span>Learning Intentions</button>
+    <button class="nav-tab" onclick="showSection('warmup')"      id="tab-warmup"><span class="tab-icon">🔥</span>Warm-Up</button>
+    <button class="nav-tab" onclick="showSection('modelling')"   id="tab-modelling"><span class="tab-icon">📊</span>Modelling</button>
+    <button class="nav-tab" onclick="showSection('practice')"    id="tab-practice"><span class="tab-icon">🔀</span>Practice</button>
+    <button class="nav-tab" onclick="showSection('exit')"        id="tab-exit"><span class="tab-icon">🎟️</span>Exit Ticket</button>
+  </div>
+</nav>
+
+<!-- ═══ MAIN ═══════════════════════════════════════════════════════════ -->
+<main class="main">
+
+<!-- ─── OVERVIEW ─────────────────────────────────────────────────────── -->
+<section class="section active" id="overview">
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#f5f0ff;">📋</div>Lesson Overview</div>
+    <div class="teach-steps">
+      <div class="teach-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Warm-Up — Phone Plan Challenge (10 min)</div>
+          <div class="step-desc">Two phone plans displayed on the board. Students vote on which is better — hands up or mini-whiteboards — before any calculation. "We need maths, not guesses." Introduce the mathematical modelling cycle: Formulate → Solve → Interpret → Communicate.</div>
+          <div class="teacher-note"><strong>📌 Teacher Note</strong>This lesson is deliberately more cognitively demanding than Lessons 1–5. Students are no longer given a procedure to follow — they must formulate the problem first. This shift from calculation to modelling is worth naming explicitly: "Notice that this lesson is different — the maths isn't handed to you. You have to decide how to set it up."</div>
+          <span class="step-time">⏱ 10 min</span>
+        </div>
+      </div>
+      <div class="teach-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Modelling Focus — Class Works the Phone Plan (20 min)</div>
+          <div class="step-desc">Teacher leads the class through the phone plan using the modelling cycle explicitly. Solve for three usage levels: 60, 100, 200 texts. Find the crossover point. Model the formulation language: "What information do we need? What are we assuming? What does the answer mean in real life?" See the Modelling tab.</div>
+          <div class="teacher-note"><strong>📌 Teacher Note — Generalising</strong>After solving the three cases, pause and ask: "Can you see a pattern? Without calculating, can you predict when Plan A would be cheaper? Try to write a rule." This moves students from solving individual cases to identifying a generalisation — a key reasoning skill in AC9M6N09.</div>
+          <span class="step-time">⏱ 20 min</span>
+        </div>
+      </div>
+      <div class="teach-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Independent Practice — Choose Your Scenario (15 min)</div>
+          <div class="step-desc">Students open the <strong>Practice tab</strong> and choose one of three scenarios: (A) electricity providers, (B) supermarket loyalty deals, (C) equipment rent vs buy. Everyone completes the core comparison and the generalising prompt. Gate after core: Extension → break-even and own problem design; Support → scaffolded table with sentence starters. Teacher circulates to Support first.</div>
+          <div class="teacher-note"><strong>📌 Productive Struggle</strong>Students should grapple independently for at least 3 minutes before teacher support is offered. The problem is intentionally open-ended — there is no single "correct" layout. Resist the urge to show students how to organise their working before they try. The act of deciding how to set it up is part of the task.</div>
+          <span class="step-time">⏱ 15 min</span>
+        </div>
+      </div>
+      <div class="teach-step" style="border-bottom:none;">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Close — Mathematician's Reflection (5 min)</div>
+          <div class="step-desc">"What made this problem different from earlier lessons?" Draw out: needing to formulate, not just calculate. Mathematician's Reflection: "I noticed a pattern today — when [variable] increases/decreases, [outcome]. This surprised / didn't surprise me because…"</div>
+          <span class="step-time">⏱ 5 min + Exit Ticket</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#E3F6EC;">📦</div>Materials</div>
+    <ul class="styled-list">
+      <li data-icon="💻">This HTML lesson file — open on devices or projected</li>
+      <li data-icon="📋">Printed comparison scenario cards (optional — or use Practice tab on devices)</li>
+      <li data-icon="📱">Calculators — permitted throughout this lesson</li>
+      <li data-icon="📄">Individual whiteboards and markers</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#f5f0ff;">🔗</div>ACARA Links</div>
+    <span class="acara-tag">AC9M6N08</span><span class="acara-tag">AC9M6N09</span>
+    <p style="margin-top:14px;font-size:14px;line-height:1.7;">
+      <strong>AC9M6N08</strong> — Approximate numerical solutions to problems involving percentages, using appropriate estimation strategies.<br>
+      <strong>AC9M6N09</strong> — Use mathematical modelling to solve practical problems involving percentages in financial contexts; formulate the problems, choosing efficient calculation strategies; interpret and communicate solutions, justifying choices made.
+    </p>
+  </div>
+</section>
+
+<!-- ─── LEARNING INTENTIONS ──────────────────────────────────────────── -->
+<section class="section" id="intentions">
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#f5f0ff;">🎯</div>Learning Intentions &amp; Success Criteria — Lesson 6</div>
+    <div class="li-grid">
+      <div class="li-card intentions">
+        <h3>🎯 I Am Learning To…</h3>
+        <div class="li-item"><span class="li-dot">1</span><span>Use the mathematical modelling cycle to set up and solve a financial comparison problem.</span></div>
+        <div class="li-item"><span class="li-dot">2</span><span>Compare two financial options and identify which is better for a given set of conditions.</span></div>
+        <div class="li-item"><span class="li-dot">3</span><span>Identify patterns across multiple cases and write a generalising rule.</span></div>
+        <div class="li-item"><span class="li-dot">4</span><span>Justify my recommendation using mathematical evidence and stated assumptions.</span></div>
+      </div>
+      <div class="li-card criteria">
+        <h3>✅ I Can Show This By…</h3>
+        <div class="li-item"><span class="li-dot" style="background:var(--green);">✓</span><span>Calculating the cost of each option for at least two different usage levels.</span></div>
+        <div class="li-item"><span class="li-dot" style="background:var(--green);">✓</span><span>Correctly identifying which option is cheaper and by how much.</span></div>
+        <div class="li-item"><span class="li-dot" style="background:var(--green);">✓</span><span>Writing a generalising rule: "Option A is better when… Option B is better when…"</span></div>
+        <div class="li-item"><span class="li-dot" style="background:var(--green);">✓</span><span>Stating at least one assumption I made and explaining how it could change my answer.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WARM-UP ───────────────────────────────────────────────────────── -->
+<section class="section" id="warmup">
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#FFF9E6;">🔥</div>Warm-Up — The Phone Plan Challenge</div>
+    <p style="font-size:15px;line-height:1.7;margin-bottom:20px;"><strong>Before you calculate anything</strong> — read the two plans and write down your gut feeling. Which one do you think is better?</p>
+
+    <div class="plan-grid">
+      <div class="plan-card a">
+        <div class="plan-name">📱 Plan A — FlexiPhone</div>
+        <div class="plan-detail">
+          <strong>$35 per month</strong><br>
+          Includes 100 free texts<br>
+          Each extra text: $0.15<br>
+          Unlimited calls
+        </div>
+      </div>
+      <div class="plan-card b">
+        <div class="plan-name">📱 Plan B — AllIn</div>
+        <div class="plan-detail">
+          <strong>$45 per month</strong><br>
+          Unlimited texts<br>
+          Unlimited calls<br>
+          No extra charges
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--bg);border-radius:12px;padding:18px 22px;margin-bottom:20px;border-left:5px solid var(--gold);">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:#7a4e00;margin-bottom:10px;">✏️ Gut feeling — before you calculate:</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="vote-btn" onclick="castVote('A')" id="vote-A" style="flex:1;min-width:140px;padding:12px 16px;border-radius:10px;border:2px solid var(--s1);background:var(--white);font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--s1);cursor:pointer;transition:all .2s;">Plan A is better</button>
+        <button class="vote-btn" onclick="castVote('B')" id="vote-B" style="flex:1;min-width:140px;padding:12px 16px;border-radius:10px;border:2px solid var(--purple);background:var(--white);font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--purple);cursor:pointer;transition:all .2s;">Plan B is better</button>
+        <button class="vote-btn" onclick="castVote('D')" id="vote-D" style="flex:1;min-width:140px;padding:12px 16px;border-radius:10px;border:2px solid var(--muted);background:var(--white);font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;transition:all .2s;">It depends</button>
+      </div>
+      <div id="vote-msg" style="display:none;margin-top:12px;padding:10px 14px;background:var(--white);border-radius:8px;font-size:14px;font-weight:700;color:var(--navy);"></div>
+    </div>
+
+    <!-- Modelling cycle intro -->
+    <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:17px;color:var(--navy);margin-bottom:14px;">📊 The Mathematical Modelling Cycle</div>
+    <p style="font-size:14px;line-height:1.7;margin-bottom:14px;color:var(--text);">We need maths, not guesses. But before we calculate, we need to <em>set up</em> the problem. That is what the modelling cycle is for.</p>
+    <div class="model-cycle">
+      <div class="cycle-step cs1">
+        <div class="cs-num">1</div>
+        <div class="cs-label">Formulate</div>
+        <div class="cs-desc">Decide what information matters. State your assumptions. Write down what you are trying to find.</div>
+      </div>
+      <div class="cycle-step cs2">
+        <div class="cs-num">2</div>
+        <div class="cs-label">Solve</div>
+        <div class="cs-desc">Choose your calculation strategy. Show your working. Use estimation to check as you go.</div>
+      </div>
+      <div class="cycle-step cs3">
+        <div class="cs-num">3</div>
+        <div class="cs-label">Interpret</div>
+        <div class="cs-desc">What does the number mean in real life? Does it answer the question you asked?</div>
+      </div>
+      <div class="cycle-step cs4">
+        <div class="cs-num">4</div>
+        <div class="cs-label">Communicate</div>
+        <div class="cs-desc">State your recommendation clearly. Refer back to the context. Justify your choice.</div>
+      </div>
+    </div>
+    <div class="teacher-note"><strong>📌 Head to the Modelling Tab</strong>We'll work through the phone plan together using all four steps. Follow along — you'll use the same four steps independently when you choose your own scenario in the Practice tab.</div>
+  </div>
+</section>
+
+<!-- ─── MODELLING ─────────────────────────────────────────────────────── -->
+<section class="section" id="modelling">
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#EBF4FF;">📊</div>Modelling Focus — Phone Plans: Class Worked Example</div>
+    <p style="font-size:15px;line-height:1.7;margin-bottom:20px;">Follow along as your teacher works through this. You will use the same four steps for your own scenario in the Practice tab.</p>
+
+    <!-- Step 1: Formulate -->
+    <div style="background:#EBF4FF;border-radius:14px;padding:20px 24px;margin-bottom:14px;border-left:5px solid var(--s1);">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:var(--s1);margin-bottom:10px;">Step 1 — Formulate</div>
+      <p style="font-size:14px;line-height:1.7;"><strong>What information do we need?</strong> Monthly cost of each plan at a given number of texts.<br>
+      <strong>Assumption we're making:</strong> The person only uses texts (no data, no extra calls).<br>
+      <strong>What we're trying to find:</strong> For what number of texts per month is each plan cheaper?</p>
+      <div style="margin-top:10px;background:rgba(41,128,185,0.08);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--s1);">
+        <strong>Plan A cost formula:</strong> If texts ≤ 100 → $35. If texts &gt; 100 → $35 + (texts − 100) × $0.15<br>
+        <strong>Plan B cost formula:</strong> Always $45 (flat rate, no matter how many texts)
+      </div>
+    </div>
+
+    <!-- Step 2: Solve -->
+    <div style="background:#FFF9E6;border-radius:14px;padding:20px 24px;margin-bottom:14px;border-left:5px solid var(--gold);">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:#7a4e00;margin-bottom:10px;">Step 2 — Solve: Three Usage Cases</div>
+      <table class="crossover-table">
+        <thead>
+          <tr>
+            <th>Texts / month</th>
+            <th>Plan A cost</th>
+            <th>Plan B cost</th>
+            <th>Cheaper option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>60 texts</td>
+            <td id="p-60a">?</td>
+            <td>$45</td>
+            <td id="p-60w">?</td>
+          </tr>
+          <tr>
+            <td>100 texts</td>
+            <td id="p-100a">?</td>
+            <td>$45</td>
+            <td id="p-100w">?</td>
+          </tr>
+          <tr>
+            <td>200 texts</td>
+            <td id="p-200a">?</td>
+            <td>$45</td>
+            <td id="p-200w">?</td>
+          </tr>
+        </tbody>
+      </table>
+      <button onclick="revealSolve()" style="margin-top:12px;background:var(--navy);color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:13px;padding:9px 22px;border:none;border-radius:999px;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--navy)'">
+        Reveal calculations ▶
+      </button>
+      <div id="solve-working" style="display:none;margin-top:14px;background:rgba(41,128,185,0.08);border-radius:10px;padding:14px 18px;font-size:14px;line-height:1.9;animation:fadeIn .3s ease;">
+        <strong>60 texts:</strong> Plan A = $35 (under 100 free texts, no extra charge).<br>
+        <strong>100 texts:</strong> Plan A = $35 (exactly 100 — no extra charge yet).<br>
+        <strong>200 texts:</strong> Plan A = $35 + (200 − 100) × $0.15 = $35 + $15 = $50.
+      </div>
+    </div>
+
+    <!-- Step 3: Interpret -->
+    <div style="background:#E3F6EC;border-radius:14px;padding:20px 24px;margin-bottom:14px;border-left:5px solid var(--green);">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:var(--green);margin-bottom:10px;">Step 3 — Interpret: What Does This Mean?</div>
+      <p style="font-size:14px;line-height:1.7;">Plan A is cheaper when you send <strong>100 or fewer texts</strong>. Plan B is cheaper when you send <strong>more than 100 texts</strong>. So the better plan depends entirely on how many texts you send each month.</p>
+      <div style="margin-top:12px;background:rgba(46,158,96,0.1);border-radius:8px;padding:12px 16px;">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:13px;color:var(--green);margin-bottom:4px;">📐 The Crossover Point</div>
+        <p style="font-size:14px;line-height:1.7;">The crossover point is where both plans cost the same. We need to find where Plan A cost = $45. If texts &gt; 100, Plan A = $35 + (texts − 100) × $0.15. Setting this equal to $45 and solving gives the crossover point.</p>
+        <button class="reveal-btn answer-btn" onclick="toggleReveal('crossover-ans')" style="margin-top:8px;"><span>🔒 Show crossover calculation</span><span class="reveal-arrow">▼</span></button>
+        <div class="reveal-content answer-content" id="crossover-ans">
+          $35 + (t − 100) × 0.15 = $45<br>
+          (t − 100) × 0.15 = $10<br>
+          t − 100 = 10 ÷ 0.15 ≈ 66.7<br>
+          t ≈ 166.7 → so at <strong>167 texts/month</strong>, both plans cost the same (≈$45.05).<br>
+          Under 167 texts → Plan A wins. Over 167 texts → Plan B wins.
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Communicate + Generalise -->
+    <div style="background:#f5f0ff;border-radius:14px;padding:20px 24px;margin-bottom:14px;border-left:5px solid var(--purple);">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:var(--purple);margin-bottom:10px;">Step 4 — Communicate: The Recommendation + Generalising Rule</div>
+      <div style="background:rgba(123,79,191,0.08);border-radius:10px;padding:14px 18px;font-size:14px;line-height:1.8;">
+        <strong>Recommendation:</strong> "Choose Plan A if you send fewer than 167 texts per month. Choose Plan B if you send more than 167 texts per month. If you are unsure how many texts you send, Plan B gives you peace of mind at a fixed price."<br><br>
+        <strong>Assumption stated:</strong> "We assumed the person uses texts only, not data. If they also use data, this comparison would need extra calculations."
+      </div>
+      <div style="margin-top:14px;background:rgba(123,79,191,0.1);border-radius:10px;padding:14px 18px;border:2px solid var(--purple);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:var(--purple);margin-bottom:6px;">📐 The Generalising Rule</div>
+        <p style="font-size:14px;line-height:1.7;"><strong>Pattern:</strong> As the number of texts increases beyond the free allowance, Plan A becomes more expensive at a rate of $0.15 per text. Plan B stays flat at $45. The crossover happens when the extra charges on Plan A equal the $10 price difference between the plans.</p>
+        <p style="font-size:14px;margin-top:8px;"><strong>Rule in words:</strong> "Plan A is better when texts ≤ 167. Plan B is better when texts &gt; 167."<br>
+        <strong>Rule mathematically:</strong> Crossover = 100 + (45 − 35) ÷ 0.15 ≈ 167 texts.</p>
+      </div>
+    </div>
+
+    <div class="teacher-note"><strong>📌 Before moving to Practice</strong>Ask: "What would change this answer?" (e.g. different flat rate, different per-text charge, a different free allowance.) A good model identifies what the answer depends on. Then send students to the Practice tab to try this with a new scenario.</div>
+  </div>
+</section>
+
+<!-- ─── PRACTICE ──────────────────────────────────────────────────────── -->
+<section class="section" id="practice">
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#f5f0ff;">🔀</div>Practice — Choose Your Scenario</div>
+    <div class="diff-intro">
+      <p>Choose one of the three scenarios below. Work through the four steps: Formulate → Solve → Interpret → Communicate. After the core comparison, complete the generalising prompt — everyone does this part.</p>
+    </div>
+
+    <!-- Scenario selector -->
+    <div class="scenario-tabs">
+      <button class="scenario-btn active" onclick="showScenario('elec')" id="btn-elec">⚡ A — Electricity Providers</button>
+      <button class="scenario-btn" onclick="showScenario('super')" id="btn-super">🛒 B — Supermarket Loyalty</button>
+      <button class="scenario-btn" onclick="showScenario('equip')" id="btn-equip">🎒 C — Rent vs Buy</button>
+    </div>
+
+    <!-- SCENARIO A: ELECTRICITY -->
+    <div class="scenario-panel active" id="panel-elec">
+      <div class="sc-header elec">
+        <div class="sc-label">Scenario A</div>
+        <div class="sc-title">⚡ Two Electricity Providers</div>
+        <div class="sc-sub">The Nguyen family wants to choose the best electricity provider. Help them decide.</div>
+      </div>
+      <div class="option-pair">
+        <div class="option-card opt-a">
+          <div class="opt-name">Provider A — PowerDirect</div>
+          <div class="opt-detail">
+            28c per kilowatt-hour (kWh)<br>
+            <strong>No daily supply charge</strong><br>
+            No exit fees
+          </div>
+        </div>
+        <div class="option-card opt-b">
+          <div class="opt-name">Provider B — EnergyPlus</div>
+          <div class="opt-detail">
+            22c per kWh<br>
+            <strong>$1.20 per day supply charge</strong><br>
+            No exit fees
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:12px;padding:16px 20px;margin-bottom:16px;border-left:4px solid var(--gold);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:#7a4e00;margin-bottom:6px;">📋 Step 1 — Formulate first</div>
+        <p style="font-size:14px;line-height:1.7;">Before calculating: write down what information you need, what you are assuming, and what you are trying to find. A 30-day month is a reasonable assumption to start with.</p>
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:var(--navy);margin-bottom:10px;">Step 2 — Solve: Calculate the monthly cost at each usage level</div>
+      <table class="working-table">
+        <thead>
+          <tr>
+            <th>Monthly usage (kWh)</th>
+            <th>Provider A cost ($)</th>
+            <th>Provider B cost ($)</th>
+            <th>Cheaper option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">200 kWh</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="A or B?"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">400 kWh</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="A or B?"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">600 kWh</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="A or B?"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
+        <button class="reveal-btn hint-btn" onclick="toggleReveal('elec-hint')"><span>💡 Hint — how to set up Provider B's cost</span><span class="reveal-arrow">▼</span></button>
+        <button class="reveal-btn answer-btn" onclick="toggleReveal('elec-ans')"><span>🔒 Check answers</span><span class="reveal-arrow">▼</span></button>
+      </div>
+      <div class="reveal-content hint-content" id="elec-hint">Provider B has two separate charges you need to add together for each month. Think about what changes as you use more electricity — and what stays the same regardless of usage. Write a formula for Provider B's monthly cost before you substitute any numbers.</div>
+      <div class="reveal-content answer-content" id="elec-ans">
+        Provider A: usage × $0.28 only.<br>
+        Provider B: (usage × $0.22) + ($1.20 × 30 days) = (usage × $0.22) + $36<br><br>
+        200 kWh: A = <strong>$56</strong> | B = $44 + $36 = <strong>$80</strong> → <strong>A cheaper</strong><br>
+        400 kWh: A = <strong>$112</strong> | B = $88 + $36 = <strong>$124</strong> → <strong>A cheaper</strong><br>
+        600 kWh: A = <strong>$168</strong> | B = $132 + $36 = <strong>$168</strong> → <strong>tie — this is the crossover!</strong>
+      </div>
+
+      <div style="background:var(--bg);border-radius:12px;padding:16px 20px;margin:14px 0;border-left:4px solid var(--purple);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:var(--purple);margin-bottom:6px;">Step 3 — Interpret + Step 4 — Communicate</div>
+        <p style="font-size:14px;line-height:1.7;">Once you have your table filled in: write two sentences. (1) Which provider is better and under what conditions? (2) What assumption did you make that could change your recommendation?</p>
+      </div>
+    </div>
+
+    <!-- SCENARIO B: SUPERMARKET LOYALTY -->
+    <div class="scenario-panel" id="panel-super">
+      <div class="sc-header super">
+        <div class="sc-label">Scenario B</div>
+        <div class="sc-title">🛒 Supermarket Loyalty Deals</div>
+        <div class="sc-sub">The Park family shops for groceries weekly. Which supermarket loyalty deal saves them more money?</div>
+      </div>
+      <div class="option-pair">
+        <div class="option-card opt-a">
+          <div class="opt-name">SuperMart — FreshRewards</div>
+          <div class="opt-detail">
+            Earn 1 point per $1 spent<br>
+            500 points = $5 voucher<br>
+            <strong>No joining fee</strong><br>
+            Points expire after 12 months
+          </div>
+        </div>
+        <div class="option-card opt-b">
+          <div class="opt-name">ValueGrocer — SaveMore</div>
+          <div class="opt-detail">
+            <strong>4% cashback</strong> on all purchases<br>
+            Minimum $200/month to qualify<br>
+            Cashback paid quarterly<br>
+            No joining fee
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:12px;padding:16px 20px;margin-bottom:16px;border-left:4px solid var(--gold);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:#7a4e00;margin-bottom:6px;">📋 Step 1 — Formulate first</div>
+        <p style="font-size:14px;line-height:1.7;">Before calculating: think about how the FreshRewards points convert to dollars. How many dollars of shopping does it take to earn a $5 voucher? Express both deals as a percentage saving — this makes them directly comparable.</p>
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:var(--navy);margin-bottom:10px;">Step 2 — Solve: Annual saving at each spend level</div>
+      <table class="working-table">
+        <thead>
+          <tr>
+            <th>Monthly spend ($)</th>
+            <th>FreshRewards annual saving</th>
+            <th>SaveMore annual saving</th>
+            <th>Better deal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">$100/month</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="qualifies?"></td>
+            <td><input class="working-input" type="text" placeholder="A or B?"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">$250/month</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="A or B?"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">$400/month</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="A or B?"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
+        <button class="reveal-btn hint-btn" onclick="toggleReveal('super-hint')"><span>💡 Hint — comparing the two reward types</span><span class="reveal-arrow">▼</span></button>
+        <button class="reveal-btn answer-btn" onclick="toggleReveal('super-ans')"><span>🔒 Check answers</span><span class="reveal-arrow">▼</span></button>
+      </div>
+      <div class="reveal-content hint-content" id="super-hint">The two deals use different systems — one uses points, the other uses a percentage. Before you can compare them, it helps to convert the points deal into an equivalent percentage. Think: earning 500 points requires spending $500, which gives back $5. What percentage of $500 is $5? Once you have both as percentages, you can compare them directly.</div>
+      <div class="reveal-content answer-content" id="super-ans">
+        FreshRewards: 500 points = $500 spend = $5 back = 1% saving.<br>
+        SaveMore: 4% cashback (but only if spending ≥ $200/month).<br><br>
+        $100/month (annual = $1,200): FreshRewards = $12 | SaveMore = $0 (doesn't qualify) → <strong>FreshRewards wins</strong><br>
+        $250/month (annual = $3,000): FreshRewards = $30 | SaveMore = $120 → <strong>SaveMore wins</strong><br>
+        $400/month (annual = $4,800): FreshRewards = $48 | SaveMore = $192 → <strong>SaveMore wins</strong>
+      </div>
+    </div>
+
+    <!-- SCENARIO C: RENT VS BUY -->
+    <div class="scenario-panel" id="panel-equip">
+      <div class="sc-header equip">
+        <div class="sc-label">Scenario C</div>
+        <div class="sc-title">🎒 Rent vs Buy — Sports Equipment</div>
+        <div class="sc-sub">The school runs a kayaking program. Should they rent kayaks each term or buy them outright?</div>
+      </div>
+      <div class="option-pair">
+        <div class="option-card opt-a">
+          <div class="opt-name">Option A — Rent</div>
+          <div class="opt-detail">
+            $35 per kayak per day<br>
+            <strong>No storage or maintenance costs</strong><br>
+            Available whenever needed<br>
+            No upfront cost
+          </div>
+        </div>
+        <div class="option-card opt-b">
+          <div class="opt-name">Option B — Buy</div>
+          <div class="opt-detail">
+            $480 per kayak (upfront)<br>
+            <strong>$15/year maintenance</strong> per kayak<br>
+            Storage space needed<br>
+            Lasts approximately 8 years
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:12px;padding:16px 20px;margin-bottom:16px;border-left:4px solid var(--gold);">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:#7a4e00;margin-bottom:6px;">📋 Step 1 — Formulate first</div>
+        <p style="font-size:14px;line-height:1.7;">This comparison spans multiple years. Decide: will you compare cost per year, or total cost over the 8-year lifespan? State your assumption clearly — it will affect your answer. The school uses 4 kayaks.</p>
+      </div>
+
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;color:var(--navy);margin-bottom:10px;">Step 2 — Solve: Compare costs (for 4 kayaks, per year)</div>
+      <table class="working-table">
+        <thead>
+          <tr>
+            <th>Days used per year</th>
+            <th>Rent total cost (4 kayaks)</th>
+            <th>Buy total cost (4 kayaks, year 1)</th>
+            <th>Better option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">5 days/year</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="rent or buy?"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">20 days/year</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="rent or buy?"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">40 days/year</td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="show working"></td>
+            <td><input class="working-input" type="text" placeholder="rent or buy?"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
+        <button class="reveal-btn hint-btn" onclick="toggleReveal('equip-hint')"><span>💡 Hint — thinking about the buy cost</span><span class="reveal-arrow">▼</span></button>
+        <button class="reveal-btn answer-btn" onclick="toggleReveal('equip-ans')"><span>🔒 Check answers</span><span class="reveal-arrow">▼</span></button>
+      </div>
+      <div class="reveal-content hint-content" id="equip-hint">The "buy" option has a large upfront cost that is paid only once, then smaller ongoing costs each year. Think about how you would spread the purchase price across the years it will be used — this is sometimes called an annual cost. What annual figure do you get when you divide the purchase price by the lifespan, then add the yearly maintenance?</div>
+      <div class="reveal-content answer-content" id="equip-ans">
+        Rent cost (4 kayaks, n days): 4 × $35 × n = $140n<br>
+        Buy cost (4 kayaks, annualised over 8 years): (4 × $480)/8 + (4 × $15) = $240 + $60 = <strong>$300/year</strong><br><br>
+        5 days: Rent = <strong>$700</strong> | Buy = $300 → <strong>Buy cheaper</strong><br>
+        20 days: Rent = <strong>$2,800</strong> | Buy = $300 → <strong>Buy much cheaper</strong><br>
+        40 days: Rent = <strong>$5,600</strong> | Buy = $300 → <strong>Buy far cheaper</strong><br><br>
+        Note: if the school only had 1–2 days of use per year, rent becomes competitive: crossover ≈ 300 ÷ 140 ≈ 2.1 days/year.
+      </div>
+    </div>
+
+    <!-- GENERALISING PROMPT — all scenarios -->
+    <div class="generalise-box">
+      <h3>📐 Generalising Task — everyone completes this</h3>
+      <p>After completing your scenario calculations above, answer these questions in writing. This is the most important part of today's lesson.</p>
+
+      <p style="font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:#c8a8ff;margin-bottom:6px;">1. Based on your calculations, write a rule in words:</p>
+      <textarea class="gen-input" id="gen-1" placeholder="Option A is better when... Option B is better when... There is a crossover point at approximately..."></textarea>
+
+      <p style="font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:#c8a8ff;margin-bottom:6px;">2. Can you express your rule mathematically? (Try to write a formula or inequality.)</p>
+      <textarea class="gen-input" id="gen-2" placeholder="Option A is cheaper when [variable] < ___ because..."></textarea>
+
+      <p style="font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:#c8a8ff;margin-bottom:6px;">3. State one assumption you made. How would your rule change if that assumption changed?</p>
+      <textarea class="gen-input" id="gen-3" placeholder="I assumed that... If this changed, then..."></textarea>
+    </div>
+
+    <!-- Gate -->
+    <div class="diff-gate">
+      <span class="diff-gate-q">✋ Finished your scenario and generalising? Choose your next step:</span>
+      <button class="gate-btn got"  onclick="openBranch('branch-ext')">✅ Extension — go deeper</button>
+      <button class="gate-btn help" onclick="openBranch('branch-sup')">🤔 Support — I need a scaffold</button>
+    </div>
+
+    <!-- EXTENSION (B) -->
+    <div class="diff-branch" id="branch-ext">
+      <div class="diff-level ext">
+        <div class="diff-level-hdr">
+          <span class="diff-level-badge">Extension</span>
+          <span class="diff-level-title">Complex Familiar — break-even and own problem design</span>
+        </div>
+        <div class="diff-level-sub">
+          <span class="diff-se-tag se-b">B Standard</span>
+          Finding break-even points and creating original financial comparison problems.
+        </div>
+
+        <div class="diff-q">
+          <div class="diff-q-num">E1 — Find the Exact Break-Even Point</div>
+          <p>For your scenario, find the exact value of the variable (texts, kWh, days, etc.) where both options cost exactly the same. Show your algebraic or systematic working — don't just guess.</p>
+          <button class="reveal-btn hint-btn" onclick="toggleReveal('ext-h1')"><span>💡 Hint</span><span class="reveal-arrow">▼</span></button>
+          <div class="reveal-content hint-content" id="ext-h1">Write the cost formula for each option using a variable (like n for the quantity). Set them equal to each other. What value of n makes them the same? Think about what operation isolates n — you're essentially solving for the point where the two expressions are equal.</div>
+        </div>
+
+        <div class="diff-q">
+          <div class="diff-q-num">E2 — Design Your Own</div>
+          <p>Create a new financial comparison problem of your own — it must involve at least one fixed cost and one variable cost. Write the two options, solve it for three usage levels, find the break-even point, and write the generalising rule. Be ready to explain your problem to the class in 2 minutes.</p>
+        </div>
+
+        <div class="diff-gate">
+          <span class="diff-gate-q">Want the deepest challenge?</span>
+          <button class="gate-btn got" onclick="openBranch('branch-deep')">✅ Yes — deep challenge</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEEP CHALLENGE (A) -->
+    <div class="diff-branch" id="branch-deep">
+      <div class="diff-level deep">
+        <div class="diff-level-hdr">
+          <span class="diff-level-badge">Deep Challenge</span>
+          <span class="diff-level-title">Complex Unfamiliar — multi-variable optimisation</span>
+        </div>
+        <div class="diff-level-sub">
+          <span class="diff-se-tag se-a">A Standard</span>
+          Comprehensive reasoning with multiple variables in a complex unfamiliar context.
+        </div>
+
+        <div class="diff-q">
+          <div class="diff-q-num">★1 — Three-Variable Phone Plan</div>
+          <p>Plan A now offers a bonus: <strong>1GB of free data for every month you send 100 texts or fewer</strong>. Data elsewhere costs $12/GB. How does this change your generalising rule from the warm-up?</p>
+          <p style="margin-top:8px;">Investigate: at what number of texts does the combined value of Plan A (cheap plan + free data bonus) equal Plan B? Write your new generalising rule.</p>
+          <button class="reveal-btn hint-btn" onclick="toggleReveal('deep-h1')"><span>💡 Hint</span><span class="reveal-arrow">▼</span></button>
+          <div class="reveal-content hint-content" id="deep-h1">The data bonus only applies in months when you send 100 texts or fewer. Think of Plan A's effective cost in those months as the plan cost minus the value of the free data. How does subtracting $12 from Plan A's monthly cost change the crossover calculation?</div>
+        </div>
+
+        <div class="diff-q">
+          <div class="diff-q-num">★2 — Write a Recommendation</div>
+          <p>Write a financial recommendation to a fictional family — the Nguyens — who are trying to decide between two electricity providers. Your recommendation must include: (a) the generalising rule with the crossover point, (b) at least two assumptions you made, (c) a statement about how the recommendation changes if one assumption changes, and (d) a conclusion that connects to the idea of making <em>wise</em> rather than just <em>cheap</em> choices.</p>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px;">This last point connects to our unit's Catholic Perspectives theme — stewardship isn't just about minimising cost, it's about making responsible, informed decisions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="diff-branch" id="branch-sup">
+      <div class="diff-level sup">
+        <div class="diff-level-hdr">
+          <span class="diff-level-badge">Support</span>
+          <span class="diff-level-title">Scaffolded — structured table and sentence starters</span>
+        </div>
+        <div class="diff-level-sub">
+          <span class="diff-se-tag se-d">D Standard</span>
+          Partial use of mathematical modelling with significant scaffolding.
+        </div>
+
+        <div class="diff-q">
+          <div class="diff-q-num">S1 — Use the Phone Plan (Worked Scenario)</div>
+          <p>Go back to the Modelling tab. Read through Steps 1–4 carefully. Then answer these questions about the phone plan on your whiteboard:</p>
+          <ul style="margin:8px 0 0 20px;font-size:14px;line-height:2.4;">
+            <li>At 60 texts, which plan is cheaper? By how much?</li>
+            <li>At 200 texts, which plan is cheaper? By how much?</li>
+            <li>At approximately how many texts do the plans cost the same?</li>
+          </ul>
+          <div class="scaffold">
+            <strong>💡 Steps</strong>
+            Step 1: For 60 texts — Plan A costs $35 (no extra texts). Plan B costs $___. Cheaper = ___.<br>
+            Step 2: For 200 texts — Plan A = $35 + (200 − 100) × $0.15 = $35 + $___ = $___. Plan B = $___. Cheaper = ___.<br>
+            Step 3: The crossover is somewhere between 100 and 200 texts.
+          </div>
+          <button class="reveal-btn answer-btn" onclick="toggleReveal('sup-ans')"><span>🔒 Check my answers</span><span class="reveal-arrow">▼</span></button>
+          <div class="reveal-content answer-content" id="sup-ans">
+            60 texts: Plan A = $35, Plan B = $45 → <strong>Plan A cheaper by $10</strong><br>
+            200 texts: Plan A = $35 + $15 = $50, Plan B = $45 → <strong>Plan B cheaper by $5</strong><br>
+            Crossover ≈ 167 texts (from the Modelling tab working).
+          </div>
+        </div>
+
+        <div class="diff-q">
+          <div class="diff-q-num">S2 — Sentence Starters for the Generalising Prompt</div>
+          <p>Use these sentence starters to complete the Generalising Task above:</p>
+          <div class="scaffold">
+            <strong>💡 Starters</strong>
+            "Option ___ is better when the number of [texts / kWh / days] is less than ___ because..."<br>
+            "Option ___ is better when the number exceeds ___ because..."<br>
+            "I assumed that [e.g. the person uses texts only]. If this changed, then..."
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── EXIT TICKET ───────────────────────────────────────────────────── -->
+<section class="section" id="exit">
+  <div class="exit-ticket">
+    <h3>🎟️ Exit Ticket + Mathematician's Reflection</h3>
+    <p>Answer both questions, then complete the reflection.</p>
+
+    <p style="font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:#c8a8ff;margin-bottom:6px;">✏️ What made today's problems different from Lessons 2–5?</p>
+    <textarea class="exit-input" id="exit-1" placeholder="In earlier lessons I just had to calculate... Today I also had to..."></textarea>
+
+    <p style="font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:#c8a8ff;margin-bottom:6px;">✏️ Write your generalising rule for the scenario you chose (in one sentence):</p>
+    <textarea class="exit-input" id="exit-2" placeholder="[Option] is better when [variable] is [above/below] approximately [value] because..."></textarea>
+
+    <p style="font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:#c8a8ff;margin-bottom:6px;">🧠 Mathematician's Reflection:</p>
+    <textarea class="exit-input" id="exit-3" placeholder="I noticed a pattern today — when [variable] increases/decreases, [outcome]. This surprised / didn't surprise me because..." style="min-height:55px;"></textarea>
+
+    <button class="exit-submit" onclick="submitExit()">Submit ✓</button>
+    <div class="exit-confirm" id="exit-confirm">✅ Submitted! Lesson 7 is a LESR inquiry lesson — you'll model a real open problem in a small group.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:#E3F6EC;">🔭</div>Looking Ahead — Lesson 7</div>
+    <p style="font-size:15px;line-height:1.7;margin-bottom:14px;">Lesson 7 is a full LESR inquiry lesson. You'll work in a small group on an open problem — no single right answer, just the best plan you can build and defend with mathematics. You'll use everything from Lessons 1–6.</p>
+    <div style="background:var(--bg);border-radius:12px;padding:16px 20px;border-left:5px solid var(--purple);">
+      <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:var(--purple);margin-bottom:6px;">💡 Sneak Peek</div>
+      <p style="font-size:14px;line-height:1.7;">Your school has $300 to run a breakfast club for a week. What would you buy? How many students can you feed? What assumptions do you need to make — and what happens if they're wrong?</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // ── NAV ───────────────────────────────────────────────────────────────
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const sec = document.getElementById(id);
+    const tab = document.getElementById('tab-' + id);
+    if (sec) sec.classList.add('active');
+    if (tab) tab.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── VOTE ─────────────────────────────────────────────────────────────
+  function castVote(choice) {
+    ['A','B','D'].forEach(c => {
+      const btn = document.getElementById('vote-' + c);
+      if (btn) btn.style.opacity = c === choice ? '1' : '0.5';
+    });
+    const msgs = {
+      A: "You think Plan A is better. Let's see what the maths says — head to the Modelling tab.",
+      B: "You think Plan B is better. Let's see what the maths says — head to the Modelling tab.",
+      D: "You think it depends. That's actually the most mathematically interesting answer — let's find out what it depends on."
+    };
+    const msg = document.getElementById('vote-msg');
+    msg.textContent = msgs[choice];
+    msg.style.display = 'block';
+  }
+
+  // ── REVEAL SOLVE ─────────────────────────────────────────────────────
+  function revealSolve() {
+    document.getElementById('p-60a').textContent  = '$35';
+    document.getElementById('p-100a').textContent = '$35';
+    document.getElementById('p-200a').textContent = '$50';
+    document.getElementById('p-60w').innerHTML  = '<span class="winner win-a">Plan A</span>';
+    document.getElementById('p-100w').innerHTML = '<span class="winner win-a">Plan A</span>';
+    document.getElementById('p-200w').innerHTML = '<span class="winner win-b">Plan B</span>';
+    document.getElementById('solve-working').style.display = 'block';
+  }
+
+  // ── SCENARIO TABS ─────────────────────────────────────────────────────
+  function showScenario(id) {
+    ['elec','super','equip'].forEach(s => {
+      document.getElementById('panel-' + s).classList.remove('active');
+      document.getElementById('btn-' + s).classList.remove('active');
+    });
+    document.getElementById('panel-' + id).classList.add('active');
+    document.getElementById('btn-' + id).classList.add('active');
+    // Close any open reveals when switching scenarios
+    document.querySelectorAll('.reveal-content.open').forEach(el => el.classList.remove('open'));
+  }
+
+  // ── REVEAL TOGGLES ────────────────────────────────────────────────────
+  function toggleReveal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('open');
+    document.querySelectorAll('[onclick*="' + id + '"]').forEach(b => {
+      const arr = b.querySelector('.reveal-arrow');
+      if (arr) arr.style.transform = el.classList.contains('open') ? 'rotate(180deg)' : '';
+    });
+    if (el.classList.contains('open')) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── BRANCHES ─────────────────────────────────────────────────────────
+  function openBranch(id) {
+    const supChain = ['branch-sup'];
+    const extChain = ['branch-ext', 'branch-deep'];
+    if (extChain.includes(id)) supChain.forEach(b => { const el = document.getElementById(b); if (el) el.classList.remove('open'); });
+    else if (supChain.includes(id)) extChain.forEach(b => { const el = document.getElementById(b); if (el) el.classList.remove('open'); });
+    const target = document.getElementById(id);
+    if (target) { target.classList.add('open'); setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50); }
+  }
+
+  // ── EXIT TICKET ───────────────────────────────────────────────────────
+  function submitExit() {
+    const v1 = document.getElementById('exit-1').value.trim();
+    const v2 = document.getElementById('exit-2').value.trim();
+    if (!v1 && !v2) { alert('Please write something before submitting.'); return; }
+    document.getElementById('exit-confirm').classList.add('show');
+    document.querySelector('.exit-submit').disabled = true;
+    document.querySelector('.exit-submit').style.opacity = '0.5';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.reveal-content.open').forEach(el => el.classList.remove('open'));
+  });
+</script>
+</body>
+</html>
